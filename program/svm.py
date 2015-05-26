@@ -1,1 +1,2 @@
-__author__ = 'user'
+__author__ = 'fucus@qq.com'
+
