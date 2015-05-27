@@ -1,5 +1,7 @@
+#!encoding=utf8
 import random
 from config.main import Location
+from config.main import BayseConfig
 import os
 
 
@@ -31,7 +33,6 @@ class ChineseText:
 
         for i in range(1,len(name) -2):
             result.append(name[i:i+3])
-
         return result
 
 
@@ -60,7 +61,28 @@ def save_to_file(data, file_name = "", replace=False):
     with open(file_location, "w") as f:
         f.write(data)
 
+
+def clean_data(data_path = Location.data_path):
+    after_clean = ""
+    with open(data_path,"r") as f:
+        for line in f:
+            line = line.strip("\n")
+            split_line = line.split(",")
+            for i in range(len(split_line)):
+                split_line[i] = split_line[i].strip('"')
+
+            if not (split_line[BayseConfig.content_index].find("·") > -1 or split_line[BayseConfig.content_index].find(".") > -1 ):
+                if BayseConfig.content_index == 0:
+                    after_clean += "%s,%s\n"%(split_line[BayseConfig.content_index],split_line[BayseConfig.type_index])
+                else:
+                    after_clean += "%s,%s\n"%(split_line[BayseConfig.type_index],split_line[BayseConfig.content_index])
+    with open(data_path,"w") as f:
+        f.write(after_clean)
+
 def log(text):
     f = open(Location.log_file ,"a")
     f.write(text + "\n")
     f.close()
+
+if __name__ == '__main__':
+    clean_data()

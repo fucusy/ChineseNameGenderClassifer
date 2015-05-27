@@ -99,7 +99,8 @@ class bayes_classifier():
                 word_type_frequency_w = 0
                 if word_type_frequency.has_key(w):
                     word_type_frequency_w = word_type_frequency[w]
-                self.p_vector_dic[t][w] = (0.5 + word_count) / (len(self.type_list) + type_word_t_sum) * math.log(len(self.type_list) + 0.1 / word_type_frequency_w + 0.1)
+                self.p_vector_dic[t][w] = (0.5 + word_count) / (len(self.type_list) + type_word_t_sum)
+                # self.p_vector_dic[t][w] *=  math.log(len(self.type_list) + 0.1 / word_type_frequency_w + 0.1)
 
         self.is_trained = True
 
@@ -139,6 +140,8 @@ def name_distribution():
                 split_line[i] = split_line[i].strip('"')
             len_name = len(split_line[BayseConfig.content_index])
             len_name = len_name / 3
+            if len_name >=4 :
+                print split_line[BayseConfig.content_index]
             if dis_dic.has_key(len_name):
                 dis_dic[len_name] += 1
             else:
@@ -212,7 +215,7 @@ def bayes_classifier_ten_fold_test():
 
 
 if __name__ == '__main__':
-    bayes_classifier_ten_fold_test()
+    name_distribution()
 
 
 
