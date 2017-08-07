@@ -1,11 +1,11 @@
 # ChineseNameGenderClassifier
 classify Chinese name to male or female
 
-##data
+## data
 
 3.8K name,1.8K for female, 2.0K for male
 in the data file, 0 stands for female, 1 for male
-##result
+## result
 
 precision using ten fold: 84%
 
